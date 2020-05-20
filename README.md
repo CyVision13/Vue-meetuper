@@ -1,4 +1,5 @@
-# vue-meetup-starter
+# vue-meetuper
+
 
 ## Project setup
 ```
