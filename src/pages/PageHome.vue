@@ -9,7 +9,7 @@
         <button class="button is-primary is-pulled-right m-r-sm">Create Meetups</button>
         <button class="button is-primary is-pulled-right m-r-sm">All</button>
       </div>
-      <div class="row columns is-multiline"       >
+      <div class="row columns is-multiline"  >
       <MeetupItem 
         v-for="meetup in meetups"
                :key="meetup._id"
@@ -46,7 +46,7 @@
   export default {
     components:{
       CategoryItem,
-      MeetupItem
+      MeetupItem 
     },
     data(){
       return {
