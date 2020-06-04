@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar is-spaced" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="https://bulma.io">
+      <router-link class="navbar-item" :to="'/'">
         <h1 class="title is-4">VueMeetuper</h1>
-      </a>
+      </router-link >
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -13,33 +13,33 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item">
+        <router-link :to="'/'" class="navbar-item">
           Home
-        </a>
+        </router-link>
 
-        <a class="navbar-item">
+        <router-link  :to="'/find'" class="navbar-item">
           Find
-        </a>
+        </router-link>
 
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
+          <router-link :to="'/'" class="navbar-link">
             More
-          </a>
+          </router-link>
 
           <div class="navbar-dropdown">
-            <a class="navbar-item">
+            <router-link :to="'/about'" class="navbar-item">
               About
-            </a>
-            <a class="navbar-item">
+            </router-link>
+            <router-link :to="'/jobs'" class="navbar-item">
               Jobs
-            </a>
-            <a class="navbar-item">
+            </router-link>
+            <router-link :to="'/contact'" class="navbar-item">
               Contact
-            </a>
+            </router-link>
             <hr class="navbar-divider">
-            <a class="navbar-item">
+            <router-link :to="'/report'" class="navbar-item">
               Report an issue
-            </a>
+            </router-link>
           </div>
         </div>
       </div>
