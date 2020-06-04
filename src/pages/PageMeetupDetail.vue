@@ -108,7 +108,7 @@
                             <div  class="content is-medium">
                                 <div  class="post-content">
                                     <strong class="author">{{post.user.name}}</strong>
-                                    <small class="post-time">{{post.updatedAt}}</small>
+                                    <small class="post-time">{{post.updatedAt | formatTime('LLL')}}</small>
                                     <br>
                                     <p class="post-content-message">{{post.text}}</p>
 
@@ -149,7 +149,7 @@ export default {
     },
     computed:{
         meetupCreator(){
-            return this.meetup.meetupCreator
+            return this.meetup.meetupCreator || ''
         }
     }
 }
