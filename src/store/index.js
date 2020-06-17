@@ -13,7 +13,12 @@ export default new Vuex.Store({
         meetup:{}
     },
     getters: {
-
+        meetups(state){
+            return state.meetups
+        },
+        categories(state){
+            return state.categories
+        }
     },
     actions: {
         fetchMeetups(context){

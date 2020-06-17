@@ -50,11 +50,11 @@
     },
     computed:{
       meetups(){
-
-      },
+        return this.$store.getters['meetups']
+              },
       categories(){
-        
-      }
+        return this.$store.getters['categories']
+              }
     },
     created(){
       this.$store.dispatch('fetchMeetups')
