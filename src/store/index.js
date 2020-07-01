@@ -17,6 +17,7 @@ export default new Vuex.Store({
     },
     actions: {
         fetchMeetups({state,commit}){
+            commit('setItems',{resource:'meetups',items:[]})
             axios.get('/api/v1/meetups')
                 .then(res =>{
                     const meetups = res.data
@@ -33,10 +34,11 @@ export default new Vuex.Store({
                 })  
         },
         fetchMeetupById({state,commit},meetupId){
+            commit('setItem',{resource:'meetup',item:{}})
             axios.get(`/api/v1/meetups/${meetupId}`)
             .then(res=>{
                 const meetup = res.data
-                commit('setItems',{resource:'meetup',items:meetup})
+                commit('setItem',{resource:'meetup',item:meetup})
                 return state.meetup
             })
         },
@@ -54,20 +56,9 @@ export default new Vuex.Store({
         setItems (state,{resource,items}){
             state[resource] = items
         },
-        setItems (state,{resource,item}){
+        setItem (state,{resource,item}){
             state[resource] = item
         },
-        setMeetups(state,meetups){
-            state.meetups = meetups
-        },
-        setCategories(state,categories){
-            state.categories = categories
-        },
-        setMeetup(state,meetup){
-            state.meetup = meetup
-        },
-        setThreads(state,threads){
-            state.threads= threads
-        }
+        
     }
 })
