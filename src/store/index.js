@@ -13,7 +13,9 @@ export default new Vuex.Store({
         meetup:{}
     },
     getters: {
-        
+        testingGetter(){
+            return 22
+        }
     },
     actions: {
         fetchMeetups({state,commit}){
