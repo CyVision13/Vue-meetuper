@@ -2,10 +2,18 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import axios from 'axios'
+import meetups from './modules/meetups'
+import threads from './modules/threads'
+import categories from './modules/categories'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+    modules:{
+        meetups,
+        categories,
+        threads
+    },
     state: {
         meetups:[],
         categories:[],
@@ -13,9 +21,9 @@ export default new Vuex.Store({
         meetup:{}
     },
     getters: {
-        testingGetter(){
-            return 22
-        }
+        // testingGetter(){
+        //     return 22
+        // }
     },
     actions: {
         fetchMeetups({state,commit}){
@@ -35,15 +43,7 @@ export default new Vuex.Store({
                     return state.categories
                 })  
         },
-        fetchMeetupById({state,commit},meetupId){
-            commit('setItem',{resource:'meetup',item:{}})
-            axios.get(`/api/v1/meetups/${meetupId}`)
-            .then(res=>{
-                const meetup = res.data
-                commit('setItem',{resource:'meetup',item:meetup})
-                return state.meetup
-            })
-        },
+        
         fetchThreads({state,commit},meetupId){
             axios.get(`/api/v1/threads?meetupId=${meetupId}`)
             .then(res=>{

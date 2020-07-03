@@ -8,7 +8,7 @@
         <AppDropdown />
         <button class="button is-primary is-pulled-right m-r-sm">Create Meetups</button>
         <router-link :to="{name : 'PageMeetupFind'}" class="button is-primary is-pulled-right m-r-sm">All</router-link>
-        <h1>{{someOtherGetter}}</h1>
+        <!-- <h1>{{someOtherGetter}}</h1> -->
       </div>
       <div class="row columns is-multiline"  >
       <MeetupItem 
