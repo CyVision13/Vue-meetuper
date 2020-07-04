@@ -32,7 +32,9 @@
           </div>
           <p class="has-text-grey">
             <a>Sign In With Google</a> &nbsp;·&nbsp;
-            <a>Sign Up</a> &nbsp;·&nbsp;
+            <router-link :to="{name:'PageRegister'}"  >
+                <strong>Sign up</strong>
+            </router-link> &nbsp;·&nbsp;
             <a href="../">Need Help?</a>
           </p>
         </div>
