@@ -54,6 +54,6 @@ export default {
   background-attachment: fixed;
 }
 .page-wrapper{
-  height: 55vh;
+  min-height: 55vh;
 }
 </style>
