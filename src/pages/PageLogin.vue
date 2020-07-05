@@ -12,7 +12,7 @@
             <form>
               <div class="field">
                 <div class="control">
-                  <input class="input is-large"
+                  <input v-model="form.email" class="input is-large"
                          type="email"
                          placeholder="Your Email"
                          autofocus=""
@@ -21,13 +21,13 @@
               </div>
               <div class="field">
                 <div class="control">
-                  <input class="input is-large"
+                  <input v-model="form.password" class="input is-large"
                          type="password"
                          placeholder="Your Password"
                          autocomplete="current-password">
                 </div>
               </div>
-              <button class="button is-block is-info is-large is-fullwidth">Login</button>
+              <button @click.prevent="login" class="button is-block is-info is-large is-fullwidth">Login</button>
             </form>
           </div>
           <p class="has-text-grey">
@@ -45,6 +45,19 @@
 
 <script>
   export default {
+    data(){
+      return {
+        form:{
+          email:null,
+          password:null
+        }
+      }
+    },
+    methods:{
+      login(){
+        this.$store.dispatch('auth/loginWithEmailPassword',this.form)
+      }
+    }
   }
 </script>
 

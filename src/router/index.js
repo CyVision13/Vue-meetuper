@@ -8,6 +8,7 @@ import PageNotFound from '@/pages/PageNotFound'
 import PageRegister from '@/pages/PageRegister'
 import PageLogin from '@/pages/PageLogin'
 
+
 Vue.use(Router)
 
 const router = new Router({
