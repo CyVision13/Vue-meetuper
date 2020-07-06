@@ -17,6 +17,11 @@
                          placeholder="Your Email"
                          autofocus=""
                          autocomplete="email">
+                  <div class="form-error">
+                    <span class="help is-danger">
+                      Error Message  
+                    </span>  
+                  </div>       
                 </div>
               </div>
               <div class="field">
@@ -44,6 +49,7 @@
 </template>
 
 <script>
+  import {required,email} from 'vuelidate/lib/validators'
   export default {
     data(){
       return {
@@ -53,8 +59,20 @@
         }
       }
     },
+    validations: {
+      form:{
+        email:{
+          required
+        },
+        password:{
+          required,
+          email
+        }
+      }
+    },
     methods:{
       login(){
+        console.log(this.$v);
         this.$store.dispatch('auth/loginWithEmailPassword',this.form)
       }
     }
