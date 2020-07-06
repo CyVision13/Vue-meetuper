@@ -17,9 +17,12 @@
                          placeholder="Your Email"
                          autofocus=""
                          autocomplete="email">
-                  <div class="form-error">
-                    <span class="help is-danger">
-                      Error Message  
+                  <div v-if="$v.form.email.$error" class="form-error">
+                    <span v-if="!$v.form.email.required" class="help is-danger">
+                      Email is Required
+                    </span>  
+                    <span v-if="!$v.form.email.email" class="help is-danger">
+                      Email Address is not valid
                     </span>  
                   </div>       
                 </div>
@@ -30,6 +33,12 @@
                          type="password"
                          placeholder="Your Password"
                          autocomplete="current-password">
+                  <div v-if="$v.form.password.$error" class="form-error">
+                    <span v-if="!$v.form.password.required" class="help is-danger">
+                      password is Required
+                    </span>  
+                      
+                  </div> 
                 </div>
               </div>
               <button @click.prevent="login" class="button is-block is-info is-large is-fullwidth">Login</button>
@@ -62,17 +71,17 @@
     validations: {
       form:{
         email:{
-          required
-        },
-        password:{
           required,
           email
+        },
+        password:{
+          required
         }
       }
     },
     methods:{
       login(){
-        console.log(this.$v);
+        this.$v.form.$touch()
         this.$store.dispatch('auth/loginWithEmailPassword',this.form)
       }
     }
