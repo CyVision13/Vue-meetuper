@@ -12,7 +12,9 @@
             <form>
               <div class="field">
                 <div class="control">
-                  <input v-model="form.email" class="input is-large"
+                  <input v-model="form.email" 
+                         @blur="$v.form.email.$touch()"
+                         class="input is-large"
                          type="email"
                          placeholder="Your Email"
                          autofocus=""
@@ -29,7 +31,9 @@
               </div>
               <div class="field">
                 <div class="control">
-                  <input v-model="form.password" class="input is-large"
+                  <input v-model="form.password" 
+                         class="input is-large"
+                         @blur="$v.form.password.$touch()"
                          type="password"
                          placeholder="Your Password"
                          autocomplete="current-password">
@@ -81,7 +85,7 @@
     },
     methods:{
       login(){
-        this.$v.form.$touch()
+        
         this.$store.dispatch('auth/loginWithEmailPassword',this.form)
       }
     }
