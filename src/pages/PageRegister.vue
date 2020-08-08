@@ -70,10 +70,10 @@
                     <span v-if="!$v.form.avatar.required" class="help is-danger">
                       avatar is Required
                     </span>  
-                    <span v-if="!$v.form.avatar.url" class="help is-danger">
-                      Url format is not valid
-                    </span> 
                     
+                    <span v-if="!$v.form.avatar.supportedFileType" class="help is-danger">
+                      SELECTED FileType is not valid
+                    </span> 
                   </div>
 
                           
@@ -137,6 +137,7 @@
 
 <script>
   import {required,email,minLength,url,sameAs} from 'vuelidate/lib/validators'
+  import {supportedFileType} from '@/helpers/validators'
   export default {
     data(){
       return {
@@ -155,7 +156,7 @@
         username:{required},
           name:{required},
           email:{required,email},
-          avatar:{required,url},
+          avatar:{required,url,supportedFileType},
           password:{required,minLength:minLength(6)},
           passwordConfirmation:{required,sameAs:sameAs('password')}
       }
