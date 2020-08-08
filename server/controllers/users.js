@@ -11,3 +11,9 @@ exports.getUsers = function(req, res) {
     return res.json(users);
   });
 }
+
+exports.register = function(req,res){
+  console.log('Hello from register route!!!!');
+
+  return res.json({status:'OK'})
+}
