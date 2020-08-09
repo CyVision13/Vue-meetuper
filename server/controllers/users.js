@@ -29,6 +29,13 @@ exports.register = function(req,res){
       }
     })
   }
+  if(registerData.password !== registerData.passwordConfirmation){
+    return res.status(422).json({
+      errors:{
+        email:'is not the same as confirmation password'
+      }
+    })
+  }
 
   const user = new User(registerData);
 
