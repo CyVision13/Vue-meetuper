@@ -13,7 +13,30 @@ exports.getUsers = function(req, res) {
 }
 
 exports.register = function(req,res){
-  console.log('Hello from register route!!!!');
+  const registerData = req.body
 
-  return res.json({status:'OK'})
+  if(!registerData.email){
+    return res.status(422).json({
+      errors:{
+        email:'is required'
+      }
+    })
+  }
+  if(!registerData.password){
+    return res.status(422).json({
+      errors:{
+        email:'is required'
+      }
+    })
+  }
+
+  const user = new User(registerData);
+
+  return user.save((errors,savedUser)=>{
+    if(errors){
+      return res.status(422).json({errors})
+      }
+      return res.json(savedUser)
+  })
+  
 }
