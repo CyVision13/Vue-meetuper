@@ -50,9 +50,9 @@ exports.register = function(req,res){
 }
 
 
-exports.login = function(req,res){
+exports.login = function(req,res,next){
   const {email,password} = req.body
-
+  
   if(!email){
     return res.status(422).json({
       errors:{
@@ -68,8 +68,20 @@ exports.login = function(req,res){
     })
   }
   return passport.authenticate('local',(err,passportUser)=>{
-
-  })
+    if(err){
+      return next(err)
+    }
+    if(passportUser){
+      req.login(passportUser,function (err) {
+        if(err) {next(err)}
+        return res.json(passportUser)
+      })
+    }else{
+      return res.status(422).send({errors:{
+        'authentication':'Oops, something went wrong!'
+      }})
+    }
+  })(req,res,next)
 
   
 }
