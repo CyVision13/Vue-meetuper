@@ -2,8 +2,17 @@ import axios from 'axios'
 export default {
     namespaced:true,
     state:{
-        user:{}
+        user:null
     },
+    getters:{
+        authUser(state){
+            return state.user || null
+        },
+        isAuthenticated(state){
+            return !!state.user
+        }
+    }
+    ,
     actions:{
         loginWithEmailPassword({commit},userData){
             return axios.post('/api/v1/users/login',userData)

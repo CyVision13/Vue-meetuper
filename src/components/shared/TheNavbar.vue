@@ -45,23 +45,52 @@
       </div>
 
       <div class="navbar-end">
+        <!-- <div v-if="user" class="navbar-item">
+          Welcome<span> &nbsp </span> <span class="button is-primary">{{user.name}}</span>
+        </div> -->
         <div class="navbar-item">
+          <div v-if="user">
+            Welcome {{user.name}}
+          </div>
+        </div>
+        <div v-if="user" class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+              Account
+          </a>
+          <div class="navbar-dropdown">
+            <a href="#" class="navbar-item">
+                Profile
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+                Logout
+            </a>
+          </div>
+        </div>
+        <div v-else class="navbar-item has-dropdown ">
           <div class="buttons">
-            <router-link :to="{name:'PageRegister'}"  class="button is-primary">
-                <strong>Sign up</strong>
+            <router-link :to="{name: 'PageRegister'}" class="button is-primary">
+              <strong>Sign up</strong>
             </router-link>
-            <router-link :to="{name:'PageLogin'}" class="button is-light">
-                Log in
+            <router-link :to="{name: 'PageLogin'}" class="button is-light">
+              Log in
             </router-link>
           </div>
         </div>
+        
       </div>
     </div>
   </nav>
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
   export default {
+    computed:{
+      ...mapGetters({
+        'user':'auth/authUser'
+      })
+    }
   }
 </script>
 
