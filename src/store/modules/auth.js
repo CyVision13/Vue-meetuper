@@ -24,6 +24,16 @@ export default {
         registerUser(context,userData){
             return axios.post('/api/v1/users/register',userData)
         },
+        logout({commit}){
+            return axios.post('/api/v1/users/logout')
+                .then((res)=>{
+                    commit('setAuthUser',null)
+                    return true
+                })
+                .catch(err=>{
+                    console.log(err);
+                })
+        },
         getAuthUser({commit}){
             return axios.get('api/v1/users/me')
                 .then(res=>{
@@ -32,6 +42,7 @@ export default {
                     return user
                 })
                 .catch(err =>{
+                    console.log(err);
                     commit('setAuthUser',null)
                     return undefined
                 })

@@ -62,7 +62,7 @@
                 Profile
             </a>
             <hr class="navbar-divider">
-            <a class="navbar-item">
+            <a @click.prevent="Logout" class="navbar-item">
                 Logout
             </a>
           </div>
@@ -90,6 +90,11 @@
       ...mapGetters({
         'user':'auth/authUser'
       })
+    },
+    methods:{
+      Logout(){
+        this.$store.dispatch('auth/logout')
+      }
     }
   }
 </script>
