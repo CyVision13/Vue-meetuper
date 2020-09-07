@@ -62,9 +62,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   store.dispatch("auth/getAuthUser").then(authUser => {
-    console.log(authUser);
     if (to.meta.onlyAuthUser) {
-        // if(store.getters["auth/isAuthenticated"]){ 
       if (authUser) {
         next();
       } else {

@@ -37,22 +37,24 @@ export default {
     },
     getAuthUser({ commit, getters }) {
       const authUser = getters["authUser"];
-      if (authUser) {
-        return Promise.resolve(authUser);
-      }
-      return axios
-        .get("api/v1/users/me")
-        .then(res => {
-          const user = res.data;
-          commit("setAuthUser", user);
-          commit("setAuthState", true);
-          return user;
-        })
-        .catch(err => {
-          commit("setAuthUser", null);
-          commit("setAuthState", true);
-          return err;
-        });
+      return new Promise(function(resolve, reject) {
+        if (authUser) {
+          return resolve(authUser);
+        }
+        return axios
+          .get("/api/v1/users/me")
+          .then(res => {
+            const user = res.data;
+            commit("setAuthUser", user);
+            commit("setAuthState", true);
+            return resolve(user);
+          })
+          .catch(err => {
+            commit("setAuthUser", null);
+            commit("setAuthState", true);
+            return resolve(null);
+          });
+      });
     }
   },
   mutations: {
