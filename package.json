@@ -21,6 +21,7 @@
     "firebase": "^5.8.0",
     "firebase-admin": "^6.5.0",
     "http-proxy-middleware": "^0.19.1",
+    "http2": "^3.3.7",
     "jsonwebtoken": "^8.4.0",
     "moment": "^2.26.0",
     "mongoose": "^5.4.7",
