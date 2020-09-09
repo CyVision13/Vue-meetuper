@@ -44,3 +44,20 @@ passport.use(
     }
   )
 );
+
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromHeader("authorization"),
+  secretOrKey: config.JWT_SECRET
+};
+passport.use(new JwtStrategy(jwtOptions, function(payload, done) {
+  User.findById(payload.id, function(err, user) {
+    if (err) {
+      return done(err, false);
+    }
+    if (user) {
+      done(null, user);
+    } else {
+      done(null, false);
+    }
+  });
+}));
