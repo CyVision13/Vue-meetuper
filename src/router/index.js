@@ -39,12 +39,14 @@ const router = new Router({
     {
       path: "/register",
       name: "PageRegister",
-      component: PageRegister
+      component: PageRegister,
+      meta: { onlyGuestUser: true }
     },
     {
       path: "/login",
       name: "PageLogin",
-      component: PageLogin
+      component: PageLogin,
+      meta: { onlyGuestUser: true }
     },
     {
       path: "/401",
@@ -67,6 +69,12 @@ router.beforeEach((to, from, next) => {
         next();
       } else {
         next({ name: "PageNotAuthenticated" });
+      }
+    } else if (to.meta.onlyGuestUser) {
+      if (authUser) {
+        next({ name: "PageHome" });
+      }else {
+        next();
       }
     } else next();
   });
