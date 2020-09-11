@@ -1,4 +1,13 @@
 import axios from "axios";
+import axiosInstance from "@/services/axios"
+import jwt from 'jsonwebtoken'
+function checkTokenValidity (token){
+  if(token){
+    const decodedToken =jwt.decode(token)
+    return decodedToken && (decodedToken.exp *1000) > new Date().getTime()
+  }
+  return false
+}
 // import { auth } from 'firebase-admin'
 export default {
   namespaced: true,
@@ -18,6 +27,7 @@ export default {
     loginWithEmailPassword({ commit }, userData) {
       return axios.post("/api/v1/users/login", userData).then(res => {
         const user = res.data;
+        localStorage.setItem('meetuper-jwt',user.token)
         commit("setAuthUser", user);
       });
     },
@@ -37,19 +47,23 @@ export default {
     },
     getAuthUser({ commit, getters }) {
       const authUser = getters["authUser"];
+      const token = localStorage.getItem('meetuper-jwt')
+      const isTokenValid = checkTokenValidity(token)
       return new Promise(function(resolve, reject) {
-        if (authUser) {
+        if (authUser && isTokenValid) {
           return resolve(authUser);
         }
         const config = {
           headers: {
-            "Cache-Control": "no-cache"
+            "Cache-Control": "no-cache",
+            // 'authorization': `Bearer ${token}`
           }
         };
-        return axios
+        return axiosInstance
           .get("/api/v1/users/me", config)
           .then(res => {
             const user = res.data;
+            localStorage.setItem('meetuper-jwt',user.token)
             commit("setAuthUser", user);
             commit("setAuthState", true);
             return resolve(user);
