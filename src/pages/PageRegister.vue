@@ -153,12 +153,12 @@
     },
     validations:{
       form:{
-        username:{required},
-          name:{required},
-          email:{required,email},
-          avatar:{required,url,supportedFileType},
-          password:{required,minLength:minLength(6)},
-          passwordConfirmation:{required,sameAs:sameAs('password')}
+        username:{},
+          name:{},
+          email:{email},
+          avatar:{url,supportedFileType},
+          password:{minLength:minLength(6)},
+          passwordConfirmation:{sameAs:sameAs('password')}
       }
     },
     methods:{
@@ -166,7 +166,10 @@
         this.$v.form.$touch()
         this.$store.dispatch('auth/registerUser',this.form)
           .then(()=> this.$router.push('/login'))
-          .catch(err=> console.log(err))
+          .catch(errorMessage=>{
+           
+          this.$toasted.error(errorMessage, { duration: 5000 });
+          })
       }
     }
   }

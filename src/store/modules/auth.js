@@ -1,6 +1,8 @@
 import axios from "axios";
 import axiosInstance from "@/services/axios"
 import jwt from 'jsonwebtoken'
+import {rejectError} from '@/helpers'
+
 function checkTokenValidity (token){
   if(token){
     const decodedToken =jwt.decode(token)
@@ -29,10 +31,12 @@ export default {
         const user = res.data;
         localStorage.setItem('meetuper-jwt',user.token)
         commit("setAuthUser", user);
-      });
+      })
+        .catch(err => rejectError(err))
     },
     registerUser(context, userData) {
-      return axios.post("/api/v1/users/register", userData);
+      return axios.post("/api/v1/users/register", userData)
+        .catch(err =>rejectError(err))
     },
     logout({ commit }) {
       // For Session Authentication !
