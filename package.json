@@ -37,7 +37,7 @@
     "vue": "^2.5.22",
     "vue-router": "^3.0.2",
     "vue-socket.io": "^3.0.5",
-    "vue-toasted": "^1.1.26",
+    "vue-toasted": "^1.1.28",
     "vue2-timepicker": "^0.1.4",
     "vuejs-datepicker": "^1.5.4",
     "vuelidate": "^0.7.5",
