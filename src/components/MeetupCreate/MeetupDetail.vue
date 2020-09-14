@@ -39,11 +39,11 @@
       <div class="m-b-lg">
         <div class="select">
           <!-- TODO: Get Here Categories -->
-          <!-- <select v-model="form.category">
+          <select v-model="form.category">
             <option v-for="category of categories"
                     :value="category"
                     :key="category.id">{{category.name}}</option>
-          </select> -->
+          </select>
         </div>
         <div v-if="$v.form.category.$error">
           <span v-if="!$v.form.category.required" class="help is-danger">Category is required</span>
@@ -75,6 +75,12 @@
         timeTo: { required },
         timeFrom: { required }
       }
+    },
+    computed:{
+      categories(){
+        return this.$store.state.categories.items
+      }
+      
     }
   }
 </script>
