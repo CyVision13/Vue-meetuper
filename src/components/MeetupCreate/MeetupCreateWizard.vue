@@ -11,7 +11,7 @@
     <progress class="progress" :value="currentProgress" max="100">{{currentProgress}}%</progress>
     <div class="controll-btns m-b-md">
       <button  v-if="currentStep !==1" @click="moveToPreStep" class="button is-primary m-r-sm">Back</button>
-      <button  v-if="currentStep !== allStepsCount" @click="moveToNextStep" class="button is-primary">Next</button>
+      <button  :disabled="!canProceed" v-if="currentStep !== allStepsCount" @click="moveToNextStep" class="button is-primary">Next</button>
       <!-- Confirm Data -->
       <button v-else
       class="button is-primary">Confirm</button>
@@ -37,6 +37,7 @@ export default {
     return {
       currentStep: 1,
       allStepsCount: 4,
+      canProceed:false,
       form: {
         location: null,
         title: null,
@@ -56,14 +57,15 @@ export default {
     },
   },
   methods: {
-    mergeStepData(stepData){
-      this.form = {...this.form, ...stepData}
+    mergeStepData(step){
+      this.form = {...this.form, ...step.data},
+      this.canProceed = step.isValid
     },
     moveToNextStep() {
-       if (this.currentStep < 4)       this.currentStep++;
+       if (this.currentStep < 4)       {this.currentStep++;}
     },
     moveToPreStep() {
-       if (this.currentStep > 1)       this.currentStep--;
+       if (this.currentStep > 1)       {this.currentStep--; this.canProceed=true}
     },
   },
 };
