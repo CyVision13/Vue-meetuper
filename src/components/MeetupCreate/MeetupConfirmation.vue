@@ -25,7 +25,7 @@
         <span class="result-title">
         From
         </span>
-        <p>{{meetupToCreate.timeForm}}</p>
+        <p>{{meetupToCreate.timeFrom}}</p>
       </div>
       <div>
         <span class="result-title">
