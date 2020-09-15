@@ -3,9 +3,9 @@
     <div class="current-step is-pulled-right">{{currentStep}} of {{allStepsCount}}</div>
     <!-- Form Steps -->
     <keep-alive>
-      <MeetupLocation v-if="currentStep===1" @stepUpdated="mergeStepData" />
-      <MeetupDetail v-if="currentStep===2"  @stepUpdated="mergeStepData" />
-      <MeetupDescription v-if="currentStep===3" @stepUpdated="mergeStepData" />
+      <MeetupLocation v-if="currentStep===1" @stepUpdated="mergeStepData" ref="currentComponent" />
+      <MeetupDetail v-if="currentStep===2"  @stepUpdated="mergeStepData" ref="currentComponent"  />
+      <MeetupDescription v-if="currentStep===3" @stepUpdated="mergeStepData" ref="currentComponent" />
       <MeetupConfirmation v-if="currentStep===4" :meetupToCreate="form" />
     </keep-alive>
     <progress class="progress" :value="currentProgress" max="100">{{currentProgress}}%</progress>
@@ -62,7 +62,13 @@ export default {
       this.canProceed = step.isValid
     },
     moveToNextStep() {
-       if (this.currentStep < 4)       {this.currentStep++;}
+       if (this.currentStep < 4) {
+         this.currentStep++;
+         this.$nextTick(()=>{
+           this.canProceed = !this.$refs['currentComponent'].$v.$invalid
+         })
+         
+       }
     },
     moveToPreStep() {
        if (this.currentStep > 1)       {this.currentStep--; this.canProceed=true}
