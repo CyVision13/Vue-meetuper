@@ -2,11 +2,12 @@
   <div class="meetup-create-form">
     <div class="current-step is-pulled-right">{{currentStep}} of {{allStepsCount}}</div>
     <!-- Form Steps -->
-    <MeetupLocation v-if="currentStep===1" />
-    <MeetupDetail v-if="currentStep===2" />
-    <MeetupDescription v-if="currentStep===3" />
-    <MeetupConfirmation v-if="currentStep===4" />
-
+    <keep-alive></keep-alive>
+      <MeetupLocation v-if="currentStep===1" @stepUpdated="mergeStepData" />
+      <MeetupDetail v-if="currentStep===2"  @stepUpdated="mergeStepData" />
+      <MeetupDescription v-if="currentStep===3" @stepUpdated="mergeStepData" />
+      <MeetupConfirmation v-if="currentStep===4" />
+    </keep-alive>
     <progress class="progress" :value="currentProgress" max="100">{{currentProgress}}%</progress>
     <div class="controll-btns m-b-md">
       <button  v-if="currentStep !==1" @click="moveToPreStep" class="button is-primary m-r-sm">Back</button>
@@ -55,6 +56,9 @@ export default {
     },
   },
   methods: {
+    mergeStepData(stepData){
+      this.form = {...this.form, ...stepData}
+    },
     moveToNextStep() {
        if (this.currentStep < 4)       this.currentStep++;
     },
