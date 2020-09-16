@@ -28,6 +28,9 @@ export default{
                 return state.item
             })
         },
+        createMeetup(context,meetupToCreate){
+            console.log(meetupToCreate);
+        }
 
     },
     mutations:{

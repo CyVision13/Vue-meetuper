@@ -17,10 +17,11 @@
       <button  :disabled="!canProceed" v-if="currentStep !== allStepsCount" @click="moveToNextStep" class="button is-primary">Next</button>
       <!-- Confirm Data -->
       <button v-else
+        @click="emitMeetupConfirm"
       class="button is-primary">Confirm</button>
     </div>
     <!-- Just To See Data in the Form -->
-    <pre><code>{{form}}</code></pre>
+    <!-- <pre><code>{{form}}</code></pre> -->
   </div>
 </template>
 
@@ -83,6 +84,9 @@ export default {
     moveToPreStep() {
        if (this.currentStep > 1)       {this.currentStep--; this.canProceed=true}
     },
+    emitMeetupConfirm(){
+      this.$emit('meetupConfirmed',this.form)
+    }
   },
 };
 </script>
