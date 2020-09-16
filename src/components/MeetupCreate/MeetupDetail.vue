@@ -25,20 +25,22 @@
     </div>
     <div class="field">
       <label class="title m-b-sm">From</label>
-      <input v-model="form.timeFrom"
+      <!-- <input v-model="form.timeFrom"
             @blur="$v.form.timeFrom.$touch()"
              class="input"
              type="text"
-             placeholder="Time From">
+             placeholder="Time From"> -->
+             <VueTimepicker @change="changeTime($event , 'timeFrom')"></VueTimepicker>
     </div>
     <div class="field">
       <label class="title m-b-sm">To</label>
-      <input v-model="form.timeTo"
+      <!-- <input v-model="form.timeTo"
             @blur="$v.form.timeTo.$touch()"
              class="input"
              type="text"
-             placeholder="Time to">
-    </div>
+             placeholder="Time to"> -->
+             <VueTimepicker @change="changeTime($event , 'timeTo')"></VueTimepicker>
+    </div> 
     <div class="field">
       <label class="title m-b-sm">Please Choose the Category.</label>
       <div class="m-b-lg">
@@ -61,6 +63,7 @@
 </template>
 
 <script>
+  import VueTimepicker from 'vue2-timepicker'
   import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
   import moment from 'moment'
   import Datepicker from 'vuejs-datepicker'
@@ -68,7 +71,8 @@
   export default {
     components:{
       Datepicker,
-      jdp: VuePersianDatetimePicker
+      jdp: VuePersianDatetimePicker,
+      VueTimepicker
     },
     data () {
       return {
@@ -119,6 +123,10 @@
       setMin(){
         const today = new Date();
         return today;
+      },
+      changeTime({data},field){
+          this.form[field] = data.HH + ':' + data.mm
+          
       }
     }
   }
