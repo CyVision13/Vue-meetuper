@@ -15,9 +15,10 @@
       <label class="title m-b-sm">Starts Date</label>
       <datepicker
         @input="setDate" 
-        :value="new Date()"
+        :disabledDates="disabledDates"
+        :value="form.startDate "
         :input-class="'input'"></datepicker>
-      <jdp @input="setDate"   :inputClass="'input'"></jdp>
+      <jdp @input="setDate"   min="" :inputClass="'input'"></jdp>
       <div v-if="$v.form.startDate.$error">
         <span v-if="!$v.form.startDate.required" class="help is-danger">Starts at is required</span>
       </div>
@@ -71,9 +72,17 @@
     },
     data () {
       return {
+        disabledDates:{
+          customPredictor:function(date){
+            const today = new Date()
+            const yesterday = today.setDate(today.getDate() -1)
+            return date < yesterday
+          }
+        },
+        today : new Date(),
         form: {
           title: null,
-          startDate: null,
+          startDate: new Date(),
           timeTo: null,
           timeFrom: null,
           category: null
@@ -95,13 +104,21 @@
       }
       
     },
+    created(){
+      this.emitFormData()
+    },
     methods:{
       emitFormData(){
         this.$emit('stepUpdated',{data:this.form,isValid: !this.$v.$invalid})
       },
       setDate(date){
+        
         this.form.startDate = moment(date).format()
         this.emitFormData()
+      },
+      setMin(){
+        const today = new Date();
+        return today;
       }
     }
   }
