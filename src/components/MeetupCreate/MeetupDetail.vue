@@ -12,12 +12,12 @@
       </div>
     </div>
     <div class="field">
-      <label class="title m-b-sm">Starts At</label>
-      <input v-model="form.startDate"
-            @blur="$v.form.startDate.$touch()"
-             class="input"
-             type="text"
-             placeholder="Starts At">
+      <label class="title m-b-sm">Starts Date</label>
+      <datepicker
+        @input="setDate" 
+        :value="new Date()"
+        :input-class="'input'"></datepicker>
+      <jdp @input="setDate"   :inputClass="'input'"></jdp>
       <div v-if="$v.form.startDate.$error">
         <span v-if="!$v.form.startDate.required" class="help is-danger">Starts at is required</span>
       </div>
@@ -60,8 +60,15 @@
 </template>
 
 <script>
+  import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
+  import moment from 'moment'
+  import Datepicker from 'vuejs-datepicker'
   import { required } from 'vuelidate/lib/validators'
   export default {
+    components:{
+      Datepicker,
+      jdp: VuePersianDatetimePicker
+    },
     data () {
       return {
         form: {
@@ -91,6 +98,10 @@
     methods:{
       emitFormData(){
         this.$emit('stepUpdated',{data:this.form,isValid: !this.$v.$invalid})
+      },
+      setDate(date){
+        this.form.startDate = moment(date).format()
+        this.emitFormData()
       }
     }
   }
