@@ -30,7 +30,7 @@
              class="input"
              type="text"
              placeholder="Time From"> -->
-             <VueTimepicker @change="changeTime($event , 'timeFrom')"></VueTimepicker>
+             <VueTimepicker  :minute-interval="10" @change="changeTime($event , 'timeFrom')"></VueTimepicker>
     </div>
     <div class="field">
       <label class="title m-b-sm">To</label>
@@ -39,7 +39,7 @@
              class="input"
              type="text"
              placeholder="Time to"> -->
-             <VueTimepicker @change="changeTime($event , 'timeTo')"></VueTimepicker>
+             <VueTimepicker :minute-interval ="10" @change="changeTime($event , 'timeTo')"></VueTimepicker>
     </div> 
     <div class="field">
       <label class="title m-b-sm">Please Choose the Category.</label>
@@ -125,8 +125,10 @@
         return today;
       },
       changeTime({data},field){
-          this.form[field] = data.HH + ':' + data.mm
-          
+        const minutes = data.mm || '00' 
+        const hours = data.HH || '00'
+          this.form[field] = hours + ':' + minutes
+          this.emitFormData()
       }
     }
   }
