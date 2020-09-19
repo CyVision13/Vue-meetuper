@@ -10,4 +10,6 @@ router.get('/secret',AuthCtrl.onlyAuthUser, MeetupsCtrl.getSecret);
 
 router.get('/:id', MeetupsCtrl.getMeetupById);
 
+router.post('', AuthCtrl.onlyAuthUser, MeetupsCtrl.createMeetup);
+
 module.exports = router;

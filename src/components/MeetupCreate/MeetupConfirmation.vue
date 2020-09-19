@@ -62,7 +62,9 @@
 </template>
 
 <script>
+
   export default {
+    
     props:{
       meetupToCreate:{
         required:true,

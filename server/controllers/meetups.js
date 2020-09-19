@@ -34,3 +34,23 @@ exports.getMeetupById = function(req, res) {
     return res.json(meetup);
   });
 }
+
+
+// Create Meetup
+exports.createMeetup = function(req, res) {
+  const meetupData = req.body;
+  const user = req.user;
+
+  const meetup = new Meetup(meetupData);
+  meetup.user = user;
+  meetup.status = 'active';
+
+  meetup.save((err, createdMeetup) => {
+    if (err) {
+      return res.status(422).send({err});
+    }
+
+    return res.json(createdMeetup)
+  })
+}
+
