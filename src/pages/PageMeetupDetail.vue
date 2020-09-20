@@ -138,6 +138,20 @@ export default {
         }),
         meetupCreator(){
             return this.meetup.meetupCreator || {}
+        },
+        isAuthenticated(){
+          return this.$store.getters['auth/isAuthenticated']
+        },
+        isMeetupOwner(){
+          return this.$store.getters['auth/isMeetupOwner']
+        },
+        isMember(){
+          return this.$store.getters['auth/isMember']
+        },
+        canJoin(){
+          return !this.isMeetupOwner &&
+                  this.isAuthenticated &&
+                  !this.is 
         }
     },
     created(){
