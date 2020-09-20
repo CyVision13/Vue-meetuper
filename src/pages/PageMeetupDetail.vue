@@ -143,15 +143,15 @@ export default {
           return this.$store.getters['auth/isAuthenticated']
         },
         isMeetupOwner(){
-          return this.$store.getters['auth/isMeetupOwner']
+          return this.$store.getters['auth/isMeetupOwner'](this.meetupCreator._id)
         },
         isMember(){
-          return this.$store.getters['auth/isMember']
+          return this.$store.getters['auth/isMember'](this.meetup._id)
         },
         canJoin(){
           return !this.isMeetupOwner &&
                   this.isAuthenticated &&
-                  !this.is 
+                  !this.isMember
         }
     },
     created(){

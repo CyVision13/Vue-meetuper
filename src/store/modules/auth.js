@@ -1,14 +1,14 @@
 import axios from "axios";
-import axiosInstance from "@/services/axios"
-import jwt from 'jsonwebtoken'
-import {rejectError} from '@/helpers'
+import axiosInstance from "@/services/axios";
+import jwt from "jsonwebtoken";
+import { rejectError } from "@/helpers";
 
-function checkTokenValidity (token){
-  if(token){
-    const decodedToken =jwt.decode(token)
-    return decodedToken && (decodedToken.exp *1000) > new Date().getTime()
+function checkTokenValidity(token) {
+  if (token) {
+    const decodedToken = jwt.decode(token);
+    return decodedToken && decodedToken.exp * 1000 > new Date().getTime();
   }
-  return false
+  return false;
 }
 // import { auth } from 'firebase-admin'
 export default {
@@ -23,20 +23,33 @@ export default {
     },
     isAuthenticated(state) {
       return !!state.user;
+    },
+    isMeetupOwner: (state) => meetupCreatorId => {
+      if (!state.user) return false;
+      return state.user._id === meetupCreatorId;
+    },
+    isMember: (state) => (meetupId) => {
+      return state.user &&
+        state.user["joinedMeetups"] &&
+        state.user["joinedMeetups"].includes(meetupId)
+      
     }
   },
   actions: {
     loginWithEmailPassword({ commit }, userData) {
-      return axios.post("/api/v1/users/login", userData).then(res => {
-        const user = res.data;
-        localStorage.setItem('meetuper-jwt',user.token)
-        commit("setAuthUser", user);
-      })
-        .catch(err => rejectError(err))
+      return axios
+        .post("/api/v1/users/login", userData)
+        .then(res => {
+          const user = res.data;
+          localStorage.setItem("meetuper-jwt", user.token);
+          commit("setAuthUser", user);
+        })
+        .catch(err => rejectError(err));
     },
     registerUser(context, userData) {
-      return axios.post("/api/v1/users/register", userData)
-        .catch(err =>rejectError(err))
+      return axios
+        .post("/api/v1/users/register", userData)
+        .catch(err => rejectError(err));
     },
     logout({ commit }) {
       // For Session Authentication !
@@ -49,23 +62,23 @@ export default {
       //   .catch(err => {
       //     return err;
       //   });
-      return new Promise((resolve,reject)=>{
-        localStorage.removeItem('meetuper-jwt')
-        commit('setAuthUser',null)
-        resolve(true)
-      })
+      return new Promise((resolve, reject) => {
+        localStorage.removeItem("meetuper-jwt");
+        commit("setAuthUser", null);
+        resolve(true);
+      });
     },
     getAuthUser({ commit, getters }) {
       const authUser = getters["authUser"];
-      const token = localStorage.getItem('meetuper-jwt')
-      const isTokenValid = checkTokenValidity(token)
+      const token = localStorage.getItem("meetuper-jwt");
+      const isTokenValid = checkTokenValidity(token);
       return new Promise(function(resolve, reject) {
         if (authUser && isTokenValid) {
           return resolve(authUser);
         }
         const config = {
           headers: {
-            "Cache-Control": "no-cache",
+            "Cache-Control": "no-cache"
             // 'authorization': `Bearer ${token}`
           }
         };
@@ -73,7 +86,7 @@ export default {
           .get("/api/v1/users/me", config)
           .then(res => {
             const user = res.data;
-            localStorage.setItem('meetuper-jwt',user.token)
+            localStorage.setItem("meetuper-jwt", user.token);
             commit("setAuthUser", user);
             commit("setAuthState", true);
             return resolve(user);
