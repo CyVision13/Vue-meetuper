@@ -26,7 +26,7 @@
         </div>
         <div class="is-pulled-right">
           <!-- We will handle this later (: -->
-          <button 
+          <button v-if="isMember"
                   class="button is-danger">Leave Meetup</button>
         </div>
       </div>
@@ -82,9 +82,9 @@
             <div class="content is-medium">
               <h3 class="title is-3">About the Meetup</h3>
               <p>{{meetup.description}}</p>
-              <button 
+              <button v-if="canJoin"
                       class="button is-primary">Join In</button>
- 
+            <button v-if="!isAuthenticated" :disabled="true" class="button is-warning">You need authenticate in order to join</button>
             </div>
             
             <div class="content is-medium ">
