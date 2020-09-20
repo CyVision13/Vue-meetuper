@@ -1,5 +1,6 @@
 import axios from "axios";
 import axiosInstance from  '@/services/axios'
+import Vue from 'vue'
 export default {
   namespaced: true,
   state: {
@@ -48,8 +49,15 @@ export default {
       return axiosInstance.post(`/api/v1/meetups/${meetupId}/join`)
         .then(res=>{
           dispatch('auth/addMeetupToAuthUser',meetupId,{root:true})
+          const joinedPeople = state.item.joinedPeople
+          commit('addUserToMeetup',[...joinedPeople,user])
+          return true
         })
     }
   },
-  mutations: {}
+  mutations: {
+    addUserToMeetup(state,joinedPeople) {
+      Vue.set(state.item,'joinedPeople',joinedPeople)
+    }
+  }
 };

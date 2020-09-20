@@ -166,7 +166,7 @@ export default {
        ...mapActions('meetups',['fetchMeetupById']), 
        ...mapActions('threads',['fetchThreads']),
        joinMeetup(){
-         this.$store.dispatch('auth/joinMeetup',)
+         this.$store.dispatch('meetups/joinMeetup',this.meetup._id)
        }
     }
 }
