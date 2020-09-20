@@ -10,31 +10,34 @@
 </template>
 
 <script>
-  import MeetupCreateWizard from '@/components/MeetupCreate/MeetupCreateWizard'
-  export default {
-    components: {
-      MeetupCreateWizard
-    },
-    computed:{
-      categories(){
-        return this.$store.state.categories.items
-      }
-    },
-    created(){
-      if( this.categories.length === 0){
-        this.$store.dispatch('categories/fetchCategories')
-      }
-    },
-    methods:{
-      createMeetup(meetuptoCreate){
-        this.$store.dispatch('meetups/createMeetup',meetuptoCreate)
-      }
+import MeetupCreateWizard from "@/components/MeetupCreate/MeetupCreateWizard";
+export default {
+  components: {
+    MeetupCreateWizard
+  },
+  computed: {
+    categories() {
+      return this.$store.state.categories.items;
+    }
+  },
+  created() {
+    if (this.categories.length === 0) {
+      this.$store.dispatch("categories/fetchCategories");
+    }
+  },
+  methods: {
+    createMeetup(meetuptoCreate) {
+      this.$store.dispatch("meetups/createMeetup", meetuptoCreate)
+        .then(createdMeetup=>{
+            this.$router.push(`/meetups/${createdMeetup._id}`)
+        }) .catch (err => console.log(err))
     }
   }
+};
 </script>
 
 <style scoped lang="scss">
-  .meetup-create-page {
-    min-height: 100vh;
-  }
+.meetup-create-page {
+  min-height: 100vh;
+}
 </style>

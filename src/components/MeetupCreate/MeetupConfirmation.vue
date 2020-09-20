@@ -19,7 +19,7 @@
         <span class="result-title">
         Start Date
         </span>
-        <p>{{meetupToCreate.startDate | formatDate}}</p>
+        <p>{{meetupToCreate.startDate}}</p>  
       </div>
       <div>
         <span class="result-title">
