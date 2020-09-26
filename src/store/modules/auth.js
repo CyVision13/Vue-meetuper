@@ -105,6 +105,8 @@ export default {
       commit('setMeetupsToAuthUser',userMeetups)
     },
     removeMeetupFromAuthUser({commit,state},meetupId){
+
+      // debugger
       const userMeeupsIds = [...state.user['joinedMeetups']]
       const index = userMeeupsIds.findIndex(userMeeupsId => userMeeupsId ===meetupId )
 
