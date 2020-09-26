@@ -102,6 +102,13 @@ export default {
     addMeetupToAuthUser({commit,state},meetupId){
       const userMeetups = [...state.user['joinedMeetups'],meetupId]
       commit('setMeetupsToAuthUser',userMeetups)
+    },
+    removeMeetupFromAuthUser({commit,state},meetupId){
+      const userMeeupsIds = [...state.user['joinedMeetups']]
+      const index = userMeeupsIds.findIndex(userMeeupsId => userMeeupsId ===meetupId )
+
+      userMeeupsIds.splice(index,1)
+      commit('setMeetupsToAuthUser',userMeeupsIds)
     }
   },
   mutations: {
@@ -114,7 +121,7 @@ export default {
     setMeetupsToAuthUser(state,meetups){
       return Vue.set(state.user,'joinedMeetups',meetups)
 
-      
     }
+
   }
 };

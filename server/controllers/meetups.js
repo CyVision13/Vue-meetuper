@@ -84,6 +84,6 @@ exports.leaveMeetup = function (req, res) {
     [Meetup.updateOne({ _id: id }, { $pull: { joinedPeople: user.id }, $inc: {joinedPeopleCount: -1}}),
      User.updateOne({ _id: user.id }, { $pull: { joinedMeetups: id }})])
     .then(() => res.json({id}))
-    .catch(err => res.status(422).send(err))
+    .catch(err => res.status(422).send({err}))
 }
 

@@ -53,6 +53,15 @@ export default {
           commit('addUserToMeetup',[...joinedPeople,user])
           return true
         })
+    },
+    leaveMeetup ({state,rootState,commit,dispatch},meetupId){
+      const user = rootState.auth.user
+
+      return axiosInstance.post(`/api/v1/meetups/${meetupId}/leave`)
+        .then(()=>{
+          dispatch('auth/removeMeetupFromAuthUser',meetupId,{root:true})
+          
+        })
     }
   },
   mutations: {
