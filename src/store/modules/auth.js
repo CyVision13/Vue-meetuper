@@ -100,6 +100,7 @@ export default {
       });
     },
     addMeetupToAuthUser({commit,state},meetupId){
+      // debugger
       const userMeetups = [...state.user['joinedMeetups'],meetupId]
       commit('setMeetupsToAuthUser',userMeetups)
     },
