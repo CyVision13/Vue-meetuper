@@ -50,7 +50,7 @@ export default {
         .then(res=>{
           dispatch('auth/addMeetupToAuthUser',meetupId,{root:true})
           const joinedPeople = state.item.joinedPeople
-          commit('addUserToMeetup',[...joinedPeople,user])
+          commit('addUsersToMeetup',[...joinedPeople,user])
           return true
         })
     },
@@ -61,11 +61,15 @@ export default {
         .then(()=>{
           dispatch('auth/removeMeetupFromAuthUser',meetupId,{root:true})
           
+          const joinedPeople = state.item.joinedPeople
+          const index = joinedPeople.findIndex(jUser => jUser._id ===user._id)
+          joinedPeople.splice(index,1)
+          commit('addUsersToMeetup',joinedPeople)
         })
     }
   },
   mutations: {
-    addUserToMeetup(state,joinedPeople) {
+    addUsersToMeetup(state,joinedPeople) {
       Vue.set(state.item,'joinedPeople',joinedPeople)
     }
   }
