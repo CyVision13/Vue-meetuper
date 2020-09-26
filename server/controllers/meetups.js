@@ -1,5 +1,5 @@
 const Meetup = require('../models/meetups');
-
+const User = require('../models/users')
 exports.getSecret = function (req,res){
   return res.json({secret:'I am secret Message'})
 }
@@ -71,8 +71,8 @@ exports.joinMeetup = function (req, res) {
     return Promise.all(
       [meetup.save(),
       User.updateOne({ _id: user.id }, { $push: { joinedMeetups: meetup }})])
-      .then(result => res.json({id}))
-      .catch(err => res.status(422).send(err))
+      .then(() => res.json({id}))
+      .catch(err => res.status(422).send({err}))
   })
 }
 
@@ -83,7 +83,7 @@ exports.leaveMeetup = function (req, res) {
   Promise.all(
     [Meetup.updateOne({ _id: id }, { $pull: { joinedPeople: user.id }, $inc: {joinedPeopleCount: -1}}),
      User.updateOne({ _id: user.id }, { $pull: { joinedMeetups: id }})])
-    .then(result => res.json({id}))
+    .then(() => res.json({id}))
     .catch(err => res.status(422).send(err))
 }
 
