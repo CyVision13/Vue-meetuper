@@ -195,7 +195,7 @@ export default {
   },
   methods: {
     ...mapActions("meetups", ["fetchMeetupById"]),
-    ...mapActions("threads", ["fetchThreads"]),
+    ...mapActions("threads", ["fetchThreads","postThread"]),
     joinMeetup() {
       this.$store.dispatch("meetups/joinMeetup", this.meetup._id);
     },
@@ -203,7 +203,7 @@ export default {
       this.$store.dispatch("meetups/leaveMeetup", this.meetup._id);
     },
     createThread({title,done}){
-      console.log(title);
+      this.postThread({title,meetupId:this.meetup._id})
       done()
     }
   },
