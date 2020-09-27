@@ -107,6 +107,7 @@
               <ThreadCreateModal v-if="isMember || isMeetupOwner"
                 :btnTitle="`welcome ${authUser.username}, Start a new thread`"
                 :title="`Create Thread`"
+                @threadSubmitted="createThread"
                />
             </div>
 
@@ -201,6 +202,9 @@ export default {
     leaveMeetup() {
       this.$store.dispatch("meetups/leaveMeetup", this.meetup._id);
     },
+    createThread(threadData){
+      console.log(threadData);
+    }
   },
 };
 </script>
