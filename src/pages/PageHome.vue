@@ -85,7 +85,7 @@
       //   .then(()=>{
       //      this.isDataLoaded = true
       //   }) 
-      
+     
     },
     methods:{
       ...mapActions('meetups',['fetchMeetups']),

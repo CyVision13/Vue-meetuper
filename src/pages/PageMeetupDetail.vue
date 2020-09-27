@@ -204,7 +204,10 @@ export default {
     },
     createThread({title,done}){
       this.postThread({title,meetupId:this.meetup._id})
-      done()
+        .then(()=>{
+          done();
+        })
+      
     }
   },
 };
