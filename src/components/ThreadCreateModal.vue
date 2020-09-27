@@ -5,7 +5,7 @@
     <!-- TODO: create "isOpen" variable in data and set it to false -->
     <!-- TODO: Set is-active class when isOpen is true -->
     <!-- <div :class="['modal', 'is-active']"> -->
-     <div :class="['modal', {'isOpen': isOpen}] ">
+     <div :class="['modal', {'is-active': isOpen}] ">
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
@@ -59,7 +59,11 @@
     },
     methods:{
         threadSubmitted(){
-            this.$emit('threadSubmitted',this.form)
+            const {title} = this.form
+            this.$emit('threadSubmitted',{title, done:()=>{
+                this.isOpen=false
+                this.form.title = ''
+            }})
         }
     }
   }

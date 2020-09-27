@@ -202,8 +202,9 @@ export default {
     leaveMeetup() {
       this.$store.dispatch("meetups/leaveMeetup", this.meetup._id);
     },
-    createThread(threadData){
-      console.log(threadData);
+    createThread({title,done}){
+      console.log(title);
+      done()
     }
   },
 };
