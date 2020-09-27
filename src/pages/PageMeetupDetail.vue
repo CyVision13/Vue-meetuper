@@ -66,7 +66,7 @@
               <!-- Threads Start -->
               <p class="menu-label">Threads</p>
               <ul>
-                <li v-for="thread in threads" :key="thread._id">
+                <li v-for="thread in orderThreads" :key="thread._id">
                   {{ thread.title }}
                 </li>
               </ul>
@@ -113,7 +113,7 @@
 
             <div class="content is-medium">
               <h3 class="title is-3">Threads</h3>
-              <div v-for="thread in threads" :key="thread._id" class="box">
+              <div v-for="thread in orderThreads" :key="thread._id" class="box">
                 <h4 id="const" class="title is-3">{{ thread.title }}</h4>
                 <form class="post-craete">
                   <div class="field">
@@ -187,6 +187,12 @@ export default {
     canJoin() {
       return !this.isMeetupOwner && this.isAuthenticated && !this.isMember;
     },
+    orderThreads(){
+      const copyOfThreads = [...this.threads]
+      return copyOfThreads.sort((thread,nextThread)=>{
+        return new Date(nextThread.createdAt)- new Date(thread.createdAt)
+      })
+    }
   },
   created() {
     const meetupId = this.$route.params.id;
@@ -205,6 +211,7 @@ export default {
     createThread({title,done}){
       this.postThread({title,meetupId:this.meetup._id})
         .then(()=>{
+          this.$toasted.success('Thread Succesfully Created!',{duration:3000})
           done();
         })
       
