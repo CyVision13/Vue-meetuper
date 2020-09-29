@@ -1,7 +1,9 @@
 <template>
+<!-- <div> v-with-warning:red.prevent.yell="'what a nice day (:'"</div> -->
      <form class="post-craete">
                   <div class="field">
-                    <textarea v-with-warning="'what a nice day (:'"
+                    <textarea
+                    
                       placeholder="Write a post"
                       class="textarea textarea-post"
                       rows="1"
