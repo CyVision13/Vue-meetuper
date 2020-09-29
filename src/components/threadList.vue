@@ -3,17 +3,8 @@
               <h3 class="title is-3">Threads</h3>
               <div v-for="thread in threads" :key="thread._id" class="box">
                 <h4 id="const" class="title is-3">{{ thread.title }}</h4>
-                <form class="post-craete">
-                  <div class="field">
-                    <textarea
-                      placeholder="Write a post"
-                      class="textarea textarea-post"
-                    ></textarea>
-                    <button :disabled="true" class="button is-primary m-t-tsm">
-                      Send
-                    </button>
-                  </div>
-                </form>
+
+                  <PostCreate v-if="canMakePost" />
 
                 <article
                   v-for="post in thread.posts"
@@ -43,11 +34,19 @@
 </template>
 
 <script>
+import PostCreate from '@/components/PostCreate'
 export default {
+    components:{
+      PostCreate
+    },
     props:{
         threads:{
             type: Array,
             required:true
+        },
+        canMakePost:{
+          type:Boolean,
+          required:true
         }
     }
 }
@@ -88,12 +87,6 @@ export default {
   .post-time {
     font-size: 16px;
   }
-}
-.textarea-post {
-  padding-bottom: 30px;
-}
-.post-craete {
-  margin-bottom: 15px;
 }
 
 

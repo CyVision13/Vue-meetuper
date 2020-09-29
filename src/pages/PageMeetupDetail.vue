@@ -111,7 +111,7 @@
                />
             </div>
 
-            <ThreadList :threads="orderThreads" />
+            <ThreadList :threads="orderThreads"  :canMakePost="canMakePost"/>
 
 
           </div>
@@ -150,6 +150,9 @@ export default {
     },
     canJoin() {
       return !this.isMeetupOwner && this.isAuthenticated && !this.isMember;
+    },
+    canMakePost(){
+      return this.isAuthenticated && (this.isMember || this.isMeetupOwner)
     },
     orderThreads(){
       const copyOfThreads = [...this.threads]
