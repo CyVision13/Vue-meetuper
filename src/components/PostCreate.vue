@@ -1,7 +1,7 @@
 <template>
      <form class="post-craete">
                   <div class="field">
-                    <textarea
+                    <textarea v-with-warning
                       placeholder="Write a post"
                       class="textarea textarea-post"
                       rows="1"
@@ -13,8 +13,9 @@
                 </form>
 </template>
 <script>
+import withWarning from '@/directives/withWarning'
 export default {
-    
+    directives : {withWarning}
 }
 </script>
 <style lang="scss" scoped>
