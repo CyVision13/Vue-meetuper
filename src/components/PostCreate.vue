@@ -3,12 +3,13 @@
   <form class="post-craete">
     <div class="field">
       <textarea
+        v-model="text"
         v-auto-expand
         placeholder="Write a post"
         class="textarea textarea-post"
         rows="1"
       ></textarea>
-      <button :disabled="true" class="button is-primary m-t-tsm">Send</button>
+      <button @click.prevent="createPost" :disabled="!text" class="button is-primary m-t-tsm">Send</button>
     </div>
   </form>
 </template>
@@ -16,7 +17,27 @@
 // import withWarning from '@/directives/withWarning'
 import autoExpand from "@/directives/autoExpand";
 export default {
+  props :{
+    threadId :{
+      required:true,
+      type:String,
+    }
+  },
   directives: { autoExpand },
+  data(){
+    return {
+      text : null
+    }
+  },
+  methods:{
+    createPost(){
+      const post = {
+        postText : this.text , 
+        threadId : this.threadId
+        }
+      this.$store.dispatch('threads/sendPost' ,post)
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

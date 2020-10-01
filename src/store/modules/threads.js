@@ -35,6 +35,15 @@ export default {
         );
         return createdThread;
       });
+    },
+    sendPost({ commit, state ,dispatch},{postText,threadId}){
+      const post = {text : postText , thread:threadId}
+      console.log( post);
+
+      return axiosInstance.post(`/api/v1/posts`, post)
+      
+      
+
     }
   },
   mutations: {}
