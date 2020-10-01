@@ -36,6 +36,7 @@ export default {
         threadId : this.threadId
         }
       this.$store.dispatch('threads/sendPost' ,post)
+      this.text = null 
     }
   }
 };
