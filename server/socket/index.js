@@ -4,7 +4,7 @@ module.exports = function (io) {
         // This is coming from our client
         socket.on('meetup/postSave',function(post){
             // This is going to our clients
-            socket.emit('meetup/postPublished',post)
+            io.emit('meetup/postPublished',post)
         })
       })
 }

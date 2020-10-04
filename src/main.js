@@ -35,9 +35,14 @@ const socket = io('http://localhost:3001')
 
 
 new Vue({
+  data(){
+    return {
+      socket
+    }
+  },
   router,
   store,
   vuelidate,
-  socket,
+  
   render: h => h(App)
 }).$mount("#app");
