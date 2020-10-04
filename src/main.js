@@ -31,11 +31,13 @@ Vue.filter("formatTime", function(value, formatType = "LL") {
   return moment(value).format(formatType);
 });
 
-io('http://localhost:3001')
+const socket = io('http://localhost:3001')
+
 
 new Vue({
   router,
   store,
   vuelidate,
+  socket,
   render: h => h(App)
 }).$mount("#app");

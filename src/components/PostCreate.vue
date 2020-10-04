@@ -36,7 +36,11 @@ export default {
         threadId : this.threadId
         }
       this.$store.dispatch('threads/sendPost' ,post)
-      this.text = null 
+      .then((cretedPost)=>{
+        this.$parent.socket.emit('meetup/postSave')
+        this.text = null 
+      })
+      
     }
   }
 };
