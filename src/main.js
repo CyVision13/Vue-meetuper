@@ -6,6 +6,7 @@ import AppDropdown from "./components/shared/AppDropdown";
 import AppHero from "./components/shared/AppHero";
 import AppSpinner from "./components/shared/AppSpinner.vue";
 import vuelidate from "vuelidate";
+import io from 'socket.io-client'
 
 import moment from "moment";
 import Toasted from "vue-toasted";
@@ -29,6 +30,8 @@ Vue.filter("formatTime", function(value, formatType = "LL") {
   if (!value) return "";
   return moment(value).format(formatType);
 });
+
+io('http://localhost:3001')
 
 new Vue({
   router,
