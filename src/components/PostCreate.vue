@@ -37,7 +37,7 @@ export default {
         }
       this.$store.dispatch('threads/sendPost' ,post)
       .then((cretedPost)=>{
-        this.$socket.emit('meetup/postSave',cretedPost)
+        this.$socket.emit('meetup/postSaved',{post:cretedPost,threadId:this.threadId})
         this.text = null 
       })
       

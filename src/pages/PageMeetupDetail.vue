@@ -171,6 +171,10 @@ export default {
       this.$socket.on('meetup/postPublished',this.addPostToThreaad)
     }
   },
+  destroyed(){
+    this.$socket.removeListener('meetup/postPublished',this.addPostToThreaad)
+    this.$socket.emit('meetup/unsubscribe')
+  },
   methods: {
     ...mapActions("meetups", ["fetchMeetupById"]),
     ...mapActions("threads", ["fetchThreads","postThread","addPostToThreaad"]),
