@@ -171,7 +171,7 @@ export default {
     }
   },
   destroyed(){
-    this.$socket.removeListener('meetup/postPublished',this.addPostToThread)
+    this.$socket.removeListener('meetup/postPublished',this.addPostToThreadHandler)
     this.$socket.emit('meetup/unsubscribe',this.meetup._id)
   },
   methods: {
