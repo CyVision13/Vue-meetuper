@@ -168,7 +168,9 @@ export default {
 
     if(this.isAuthenticated){
       this.$socket.emit('meetup/subscribe',meetupId)
-      this.$socket.on('meetup/postPublished',this.addPostToThreaad)
+      this.$socket.on('meetup/postPublished',(post)=> this.addPostToThread({
+        post,threadId:post.thread
+      }))
     }
   },
   destroyed(){
@@ -177,7 +179,7 @@ export default {
   },
   methods: {
     ...mapActions("meetups", ["fetchMeetupById"]),
-    ...mapActions("threads", ["fetchThreads","postThread","addPostToThreaad"]),
+    ...mapActions("threads", ["fetchThreads","postThread","addPostToThread"]),
     joinMeetup() {
       this.$store.dispatch("meetups/joinMeetup", this.meetup._id);
     },

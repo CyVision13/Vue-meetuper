@@ -10,7 +10,7 @@ module.exports = function(io) {
       socket.leave(`meetup-${meetupId}`);
     });
     socket.on('meetup/postSaved',function(post){
-        console.log('emitting to meetup',`meetup-${post.threadId}`);
+        console.log('emitting to meetup',`meetup-${post.meetup}`);
         socket.to(`meetup-${post.meetup}`).emit('meetup/postPublished',post)
     })
 

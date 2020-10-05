@@ -29,6 +29,11 @@ export default {
       text : null
     }
   },
+  computed:{
+    meetup(){
+      return this.$store.state.meetups.item
+    }
+  },
   methods:{
     createPost(){
       const post = {
@@ -37,7 +42,7 @@ export default {
         }
       this.$store.dispatch('threads/sendPost' ,post)
       .then((cretedPost)=>{
-        this.$socket.emit('meetup/postSaved',{post:cretedPost,threadId:this.threadId})
+        this.$socket.emit('meetup/postSaved',{...cretedPost,meetup:this.meetup._id})
         this.text = null 
       })
       
