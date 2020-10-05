@@ -50,6 +50,7 @@
   import MeetupItem from '@/components/MeetupItem'
   import {mapActions,mapState , mapGetters} from 'vuex'
   import pageLoader from '@/mixins/pageLoader'
+  import Vue from 'vue'
   export default {
     components:{
       CategoryItem,
@@ -70,6 +71,11 @@
       })
     },
     created(){
+      // Vue.myGlobalMethod()
+      // console.log(Vue.myCustomProperty);
+      // this.scream()
+      // this.$customMethod()
+
       Promise.all([this.fetchMeetups(),this.fetchCategories()])
         .then(()=> {
           this.pageLoader_resolveData()

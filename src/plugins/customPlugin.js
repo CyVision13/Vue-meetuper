@@ -40,3 +40,5 @@ const customPlugin = {
         }
     }
 }
+
+export default customPlugin
