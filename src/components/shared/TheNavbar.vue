@@ -94,6 +94,9 @@
     methods:{
       Logout(){
         this.$store.dispatch('auth/logout')
+          .then(()=>{
+            this.$router.push('/')
+          })
       }
     }
   }

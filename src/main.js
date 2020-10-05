@@ -38,6 +38,10 @@ Vue.filter("formatTime", function(value, formatType = "LL") {
   if (!value) return "";
   return moment(value).format(formatType);
 });
+Vue.filter("fromNow", function(value) {
+  if (!value) return "";
+  return moment(value).fromNow();
+});
 
 
 

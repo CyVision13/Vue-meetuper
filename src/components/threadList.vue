@@ -20,9 +20,9 @@
                     <div class="content is-medium">
                       <div class="post-content">
                         <strong class="author">{{ post.user.name }}</strong>
-                        <small class="post-time">{{
-                          post.updatedAt | formatTime("LLL")
-                        }}</small>
+                        <small class="post-time"> {{ '  '+
+                          post.updatedAt | fromNow 
+                        }} </small>
                         <br />
                         <p class="post-content-message">{{ post.text }}</p>
                       </div>
