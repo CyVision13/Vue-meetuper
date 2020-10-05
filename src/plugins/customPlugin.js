@@ -3,7 +3,7 @@
 
 
 const customPlugin = {
-    install: function(Vue, options){
+    install: function(Vue){
 
         // 1. Add global method or property
         Vue.myGlobalMethod = function(){
@@ -14,7 +14,7 @@ const customPlugin = {
 
         // 2. Add global asset
         Vue.directive('blue-color',{
-            bind (el,binding){
+            bind (el){
                 el.style.color = 'blue'
             }
         })
