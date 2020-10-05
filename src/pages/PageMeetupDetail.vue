@@ -166,14 +166,14 @@ export default {
     this.fetchMeetupById(meetupId);
     this.fetchThreads(meetupId);
 
-    this.$socket.on('meetup/postPublished',function(post){
-      alert(post.text)
-      console.log(post.text);
-    })
+    if(this.isAuthenticated){
+      this.$socket.emit('meetup/subscribe',meetupId)
+      this.$socket.on('meetup/postPublished',this.addPostToThreaad)
+    }
   },
   methods: {
     ...mapActions("meetups", ["fetchMeetupById"]),
-    ...mapActions("threads", ["fetchThreads","postThread"]),
+    ...mapActions("threads", ["fetchThreads","postThread","addPostToThreaad"]),
     joinMeetup() {
       this.$store.dispatch("meetups/joinMeetup", this.meetup._id);
     },
