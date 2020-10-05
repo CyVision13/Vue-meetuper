@@ -104,16 +104,15 @@
               >
                 You need authenticate in order to join
               </button>
-              <ThreadCreateModal v-if="isMember || isMeetupOwner"
+              <ThreadCreateModal
+                v-if="isMember || isMeetupOwner"
                 :btnTitle="`welcome ${authUser.username}, Start a new thread`"
                 :title="`Create Thread`"
                 @threadSubmitted="createThread"
-               />
+              />
             </div>
 
-            <ThreadList :threads="orderThreads"  :canMakePost="canMakePost"/>
-
-
+            <ThreadList :threads="orderThreads" :canMakePost="canMakePost" />
           </div>
         </div>
       </div>
@@ -168,18 +167,21 @@ export default {
 
     if(this.isAuthenticated){
       this.$socket.emit('meetup/subscribe',meetupId)
-      this.$socket.on('meetup/postPublished',(post)=> this.addPostToThread({
-        post,threadId:post.thread
-      }))
+      this.$socket.on('meetup/postPublished',this.addPostToThreadHandler)
     }
   },
   destroyed(){
-    this.$socket.removeListener('meetup/postPublished',this.addPostToThreaad)
-    this.$socket.emit('meetup/unsubscribe')
+    this.$socket.removeListener('meetup/postPublished',this.addPostToThread)
+    this.$socket.emit('meetup/unsubscribe',this.meetup._id)
   },
   methods: {
     ...mapActions("meetups", ["fetchMeetupById"]),
     ...mapActions("threads", ["fetchThreads","postThread","addPostToThread"]),
+    addPostToThreadHandler(post) {
+      this.addPostToThread({
+      post,threadId:post.thread
+    })
+    },
     joinMeetup() {
       this.$store.dispatch("meetups/joinMeetup", this.meetup._id);
     },
@@ -299,6 +301,4 @@ li {
 .post-craete {
   margin-bottom: 15px;
 }
-
-
 </style>
