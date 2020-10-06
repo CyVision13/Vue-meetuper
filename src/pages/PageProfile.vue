@@ -15,8 +15,11 @@
               <span class="title is-bold">{{user.name}}</span>
               <br/>
               <!-- Here will be user update functionality -->
-              <button class="button is-primary is-outlined m-t-sm">Update Info</button>
+              <!-- <button @click="OpenModal = !OpenModal" class="button is-primary is-outlined m-t-sm">Update Info</button> -->
+
+                <UserUpdaeModal />
               <br/>
+              
             </p>
             
             <p class="tagline">
@@ -129,12 +132,17 @@
 </template>
 
 <script>
+import UserUpdaeModal from '@/components/UserUpdateModal'
 import {mapState} from 'vuex'
 export default {
     data(){
         return ({
-            activeTab: 'meetups'
+            activeTab: 'meetups',
+            OpenModal : false
         })
+    },
+    components:{
+        UserUpdaeModal
     },
     computed:{ 
     
