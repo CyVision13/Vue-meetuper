@@ -11,6 +11,7 @@ import PageRegister from "@/pages/PageRegister";
 import PageLogin from "@/pages/PageLogin";
 import PageSecret from "@/pages/PageSecret";
 import PageNotAuthenticated from "@/pages/PageNotAuthenticated";
+import PageProfile from "@/pages/PageProfile"
 
 Vue.use(Router);
 
@@ -54,6 +55,12 @@ const router = new Router({
       name: "PageLogin",
       component: PageLogin,
       meta: { onlyGuestUser: true }
+    },
+    {
+      path: "/me",
+      name: "PageProfile",
+      component: PageProfile,
+      meta: { onlyAuthUser: true }
     },
     {
       path: "/401",
