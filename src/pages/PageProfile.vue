@@ -126,7 +126,21 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
+    computed:{
+        ...mapState({
+            // user: state => state.auth.user, old school code
+            // new style coding below
+            // user: (state) => state.auth.user,
+            // meetups:({stats}) => stats.meetups.data,
+            // threads:({stats}) => stats.threads.data,
+            // posts:({stats}) => stats.posts.data,
+            // meetupsCout: ({stats})=> stats.meetups.count,
+            // threadsCount: ({stats})=> stats.threads.count,
+            // postsCout: ({stats})=> stats.posst.count,
+        })
+    },
     created(){
         this.$store.dispatch('stats/fetchUserStats')
             .then(stats=> console.log(stats))
