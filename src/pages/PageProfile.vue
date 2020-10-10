@@ -17,7 +17,7 @@
               <!-- Here will be user update functionality -->
               <!-- <button @click="OpenModal = !OpenModal" class="button is-primary is-outlined m-t-sm">Update Info</button> -->
 
-                <UserUpdaeModal :authUser="user" />
+                <UserUpdaeModal @userSubmitted="updateUser" :authUser="user" />
               <br/>
               
             </p>
@@ -161,6 +161,11 @@ export default {
     created(){
         this.$store.dispatch('stats/fetchUserStats')
             .then(stats=> console.log(stats))
+    },
+    methods:{
+      updateUser({user,done}){
+        this.$store.dispatch('auth/updateUser',user)
+      }
     }
 }
 </script>
