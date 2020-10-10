@@ -22,6 +22,9 @@ export default {
     isAuthResolved(){
       return this.$store.state.auth.isAuthResolved
     }
+  },
+  created(){
+    this.$store.dispatch('meta/fetchMetaData')
   }
 }
 </script>
