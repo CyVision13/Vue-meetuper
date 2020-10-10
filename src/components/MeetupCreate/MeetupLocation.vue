@@ -3,7 +3,8 @@
     <h1 class="title m-b-sm">What's your new Meetup location?</h1>
     <div class="m-b-lg">
       <span v-if="ipLocation && !wantChangeLocation" class="subtitle">{{ipLocation}}</span>
-      <a v-if="ipLocation" @click="toggleLOcation">(change location)</a>
+      <a v-if="ipLocation && !wantChangeLocation" @click="toggleLOcation">(change location)</a>
+      <a v-if="ipLocation && wantChangeLocation" @click="toggleLOcation">(Set Default location)</a>
       <input v-if="!ipLocation || wantChangeLocation" @input="emitFormData" 
       @blur="$v.form.location.$touch()"
       v-model="form.location" type="text" class="input">
