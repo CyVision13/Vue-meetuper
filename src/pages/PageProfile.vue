@@ -17,7 +17,7 @@
               <!-- Here will be user update functionality -->
               <!-- <button @click="OpenModal = !OpenModal" class="button is-primary is-outlined m-t-sm">Update Info</button> -->
 
-                <UserUpdaeModal />
+                <UserUpdaeModal :authUser="user" />
               <br/>
               
             </p>
