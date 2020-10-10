@@ -175,6 +175,7 @@ export default {
           })
       }
     }
+    // profile section debugging
 }
 </script>
 
