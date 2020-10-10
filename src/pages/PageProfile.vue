@@ -165,6 +165,14 @@ export default {
     methods:{
       updateUser({user,done}){
         this.$store.dispatch('auth/updateUser',user)
+          .then(()=> {
+            this.$toasted.success('Profile Successfuly Updated', {duration: 3000})
+            done()
+          })
+          .catch(err =>{
+            console.log( err);
+            done();
+          })
       }
     }
 }
