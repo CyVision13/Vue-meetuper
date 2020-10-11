@@ -9,8 +9,11 @@ export default {
   },
   getters: {},
   actions: {
-    fetchMeetups({ state, commit }) {
+    fetchMeetups({ state, commit },options = {}) {
       commit("setItems", { resource: "meetups", items: [] }, { root: true });
+
+      
+
       return axios.get("/api/v1/meetups").then(res => {
         const meetups = res.data;
         commit(

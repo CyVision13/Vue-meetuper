@@ -15,7 +15,7 @@
             </div>
             <div class="level-right">
               <div class="level-item">
-                <button class="button is-medium m-r-sm">Meetups</button>
+                <button class="button is-medium m-r-sm">Meetups</button> 
                 <button class="button is-medium">Calendar</button>
               </div>
             </div>
@@ -60,7 +60,8 @@
   export default {
     data(){
       return {
-        searchedLocation : this.$store.getters['meta/location'] 
+        searchedLocation : this.$store.getters['meta/location'],
+        filter:{} 
       }
     },
     computed: {
@@ -69,8 +70,21 @@
       }
     },
     created () { 
-      this.$store.dispatch('meetups/fetchMeetups')
+      this.fetchMeetups()
       
+    },
+    methods:{
+      fetchMeetups(){
+
+        if(this.searchedLocation){
+          this.filter['location'] = this.searchedLocation
+        .toLowerCase()
+        .replace(/[\s,]+/g, "")
+        .trim();
+        }
+
+        this.$store.dispatch('meetups/fetchMeetups',{filter: this.filter})
+      }
     }
   }
 </script>
