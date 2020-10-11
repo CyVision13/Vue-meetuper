@@ -89,12 +89,12 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped> 
   .page-find {
     margin-top: 50px;
-  }
+  } 
   .meetup-card-find {
-    width: 100%;
+    width: 100%; 
     height: 180px;
     position: relative;
     display: block;
