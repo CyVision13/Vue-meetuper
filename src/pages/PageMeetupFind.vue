@@ -7,7 +7,7 @@
           <div class="level">
             <div class="level-left">
               <div class="level-item">
-                <input v-model="searchedLocation" type="text" class="input" placeholder="New York">
+                <input v-model="searchedLocation" @keyup.enter="fetchMeetups" type="text" class="input" placeholder="New York">
               </div>
               <div v-if="searchedLocation && meetups && meetups.length > 0" class="level-item">
                 <span>Meetups in {{meetups[0].location}}</span>
