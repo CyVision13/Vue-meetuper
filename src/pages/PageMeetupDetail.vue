@@ -129,6 +129,12 @@ export default {
     ThreadCreateModal,
     ThreadList
   },
+  data(){
+    return {
+      threadPageNum: 1,
+      threadPageSize: 5
+    }
+  },
   computed: {
     ...mapState({
       meetup: (state) => state.meetups.item,
@@ -164,7 +170,9 @@ export default {
     const meetupId = this.$route.params.id;
     this.fetchMeetupById(meetupId);
     this.fetchThreads(meetupId);
-
+    this.fetchThreadsHandler({
+      meetupId
+    })
     if(this.isAuthenticated){
       this.$socket.emit('meetup/subscribe',meetupId)
       this.$socket.on('meetup/postPublished',this.addPostToThreadHandler)
@@ -177,6 +185,17 @@ export default {
   methods: {
     ...mapActions("meetups", ["fetchMeetupById"]),
     ...mapActions("threads", ["fetchThreads","postThread","addPostToThread"]),
+    fetchThreadsHandler({meetupId}){
+      const filter={
+        pageNum: this.threadPageNum,
+        pageSize: this.threadPageSize
+      }
+
+      this.fetchThreads({meetupId,filter})
+        .then(()=>{
+          this.threadPageNum++
+        })
+    },
     addPostToThreadHandler(post) {
       this.addPostToThread({
       post,threadId:post.thread
