@@ -11,7 +11,12 @@ export default {
   },
   getters: {},
   actions: {
-    fetchThreads({ state, commit }, {meetupId,filter = {}}) {
+    fetchThreads({ state, commit }, {meetupId,filter = {},init}) {
+      if(init){
+        commit('setItems',{resoure:'threads',items:[]},{root:true})
+      }
+      
+
       const url = applyFilters(`/api/v1/threads?meetupId=${meetupId}`,filter)
 
       return axios.get(url).then(res => {
@@ -19,9 +24,9 @@ export default {
         
         commit('setAllDataLoaded',isAllDataLoaded)
         commit(
-          "setItems",
-          { resource: "threads", items: threads },
-          { root: true }
+          "mergeThreads",
+           threads 
+         
         );
         return state.items;
       }); 
@@ -78,6 +83,9 @@ export default {
     },
     setAllDataLoaded(state,isAllDataLoaded){
       state.isAllThreadsLoaded = isAllDataLoaded
+    },
+    mergeThreads (state,threads){
+      state.items = [...state.items,...threads]
     }
   }
 };

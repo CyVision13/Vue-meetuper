@@ -113,6 +113,9 @@
             </div>
 
             <ThreadList :threads="orderThreads" :canMakePost="canMakePost" />
+            <button
+               v-if="!isAllThreadsLoaded"
+            @click="fetchThreadsHandler" class="button is-primary">Load MOre Threads</button>
           </div>
         </div>
       </div>
@@ -139,7 +142,8 @@ export default {
     ...mapState({
       meetup: (state) => state.meetups.item,
       threads: (state) => state.threads.items,
-      authUser:(state)=> state.auth.user
+      authUser:(state)=> state.auth.user,
+      isAllThreadsLoaded:state=> state.threads.isAllThreadsLoaded
     }),
     meetupCreator() {
       return this.meetup.meetupCreator || {};
@@ -164,15 +168,18 @@ export default {
       return copyOfThreads.sort((thread,nextThread)=>{
         return new Date(nextThread.createdAt)- new Date(thread.createdAt)
       })
-    }
+      }
+    // ,
+    // isAllThreadsLoaded(){
+    //   return this.$store.state.threads.isAllThreadsLoaded
+    // }
   },
   created() {
     const meetupId = this.$route.params.id;
+  
     this.fetchMeetupById(meetupId);
     this.fetchThreads(meetupId);
-    this.fetchThreadsHandler({
-      meetupId
-    })
+    this.fetchThreadsHandler({  meetupId ,init:true })
     if(this.isAuthenticated){
       this.$socket.emit('meetup/subscribe',meetupId)
       this.$socket.on('meetup/postPublished',this.addPostToThreadHandler)
@@ -185,13 +192,13 @@ export default {
   methods: {
     ...mapActions("meetups", ["fetchMeetupById"]),
     ...mapActions("threads", ["fetchThreads","postThread","addPostToThread"]),
-    fetchThreadsHandler({meetupId}){
+    fetchThreadsHandler({meetupId,init}){
       const filter={
         pageNum: this.threadPageNum,
         pageSize: this.threadPageSize
       }
 
-      this.fetchThreads({meetupId,filter})
+      this.fetchThreads({meetupId: meetupId || this.meetup._id,filter,init})
         .then(()=>{
           this.threadPageNum++
         })
