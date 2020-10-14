@@ -104,7 +104,13 @@
 </template>
 
 <script>
+  import VueTimepicker from 'vue2-timepicker'
+  import Datepicker from 'vuejs-datepicker'
 export default {
+    components:{
+      Datepicker,
+      VueTimepicker
+    },
     props:{
         meetupId: {
             required:true,

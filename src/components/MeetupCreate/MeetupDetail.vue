@@ -63,9 +63,10 @@
 </template>
 
 <script>
-  import VueTimepicker from 'vue2-timepicker'
+  
   import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
   import moment from 'moment'
+  import VueTimepicker from 'vue2-timepicker'
   import Datepicker from 'vuejs-datepicker'
   import { required } from 'vuelidate/lib/validators'
   export default {
