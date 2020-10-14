@@ -6,6 +6,7 @@ import PageHome from "@/pages/PageHome";
 import PageMeetupDetail from "@/pages/PageMeetupDetail";
 import PageMeetupFind from "@/pages/PageMeetupFind";
 import PageMeetupCreate from '@/pages/PageMeetupCreate'
+import PageMeetupEdit from '@/pages/PageMeetupEdit'
 import PageNotFound from "@/pages/PageNotFound";
 import PageRegister from "@/pages/PageRegister";
 import PageLogin from "@/pages/PageLogin";
@@ -38,6 +39,13 @@ const router = new Router({
       path: "/meetups/:id",
       name: "PageMeetupDetail",
       component: PageMeetupDetail
+    },
+    {
+      path: "/meetups/:meetupId/edit",
+      name: "PageMeetupEdit",
+      component: PageMeetupEdit,
+      meta : { onlyAuthUser:true},
+      props: true
     },
     {
       path: "/find/:category",
