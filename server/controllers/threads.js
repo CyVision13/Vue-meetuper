@@ -27,7 +27,8 @@ exports.getThreads = function(req, res) {
   const pageNum = req.query.pageNum || 1;
 
   const skips = pageSize * (pageNum - 1)
-
+  
+  
   Thread.find({})
         .where({'meetup': meetupId})
         .skip(parseInt(skips))
