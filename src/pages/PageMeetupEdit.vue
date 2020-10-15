@@ -106,6 +106,7 @@
 <script>
   import VueTimepicker from 'vue2-timepicker'
   import Datepicker from 'vuejs-datepicker'
+  import {mapActions} from 'vuex'
 export default {
     components:{
       Datepicker,
@@ -116,9 +117,30 @@ export default {
             required:true,
             type:String
         }
+    },computed:{
+      meetup(){
+        return this.$store.state.meetups.item
+      },
+      meetupCreator(){
+        return this.meetup.meetupCreator
+      },
+      authUser(){
+        return this.$store.state.auth.user
+      }
+      
     },
     created(){
-        console.log(this.meetupId);
+        this.fetchMeetupByIdHandler()
+    },
+    methods:{
+      ...mapActions('meetups',['fetchMeetupById']),
+      fetchMeetupByIdHandler(){
+        this.fetchMeetupById(this.meetupId)
+          .then(meetup => {
+
+          })
+          .catch(err => console.log(err))
+      }
     }
 }
 </script>
