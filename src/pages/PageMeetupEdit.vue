@@ -137,7 +137,9 @@ export default {
       fetchMeetupByIdHandler(){
         this.fetchMeetupById(this.meetupId)
           .then(meetup => {
-
+            if(meetup.meetupCreator._id !== this.authUser._id){
+              this.$router.push({path : '/not-authorized'})
+            }
           })
           .catch(err => console.log(err))
       }
