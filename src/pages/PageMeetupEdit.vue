@@ -141,7 +141,7 @@ export default {
     computed:{
       meetup(){
         const meetup = this.$store.state.meetups.item
-        if(meetup){
+        if(this.hasValue(meetup)){
           const timeTo = this.parsTime(meetup.timeTo)
           const timeFrom = this.parsTime(meetup.timeFrom)
           return {...meetup,timeFrom,timeTo}
@@ -149,7 +149,7 @@ export default {
         return {}
       },
       meetupCreator(){
-        return this.meetup.meetupCreator
+        return this.meetup.meetupCreator || {}
       },
       authUser(){
         return this.$store.state.auth.user
@@ -178,14 +178,19 @@ export default {
       },
       setDate(date){
         
-        this.form.startDate = moment(date).format()
-        this.emitFormData()
+        this.meetup.startDate = moment(date).format()
+        
       },
       changeTime({data},field){
         const minutes = data.mm || '00' 
         const hours = data.HH || '00'
-          this.form[field] = hours + ':' + minutes
-          this.emitFormData()
+          this.meetup[field] = hours + ':' + minutes
+          
+      },
+      hasValue(meetup){
+        const meetupLength = Object.keys(meetup).length
+        return meetupLength && meetupLength > 0
+        
       }
     }
 }
