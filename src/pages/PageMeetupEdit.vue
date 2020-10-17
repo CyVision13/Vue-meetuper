@@ -5,7 +5,7 @@
         <div class="container">
           <h2 class="subtitle">
             <!-- TODO: Display meetup start date -->
-            Some Date
+            
           </h2>
           <div class="field">
             <!-- TODO: Bind meetup title -->
@@ -119,7 +119,13 @@ export default {
         }
     },computed:{
       meetup(){
-        return this.$store.state.meetups.item
+        const meetup = this.$store.state.meetups.item
+        if(meetup){
+          const timeTo = this.parsTime(meetup.timeTo)
+          const timeFrom = this.parsTime(meetup.timeFrom)
+          return {...meetup,timeFrom,timeTo}
+        }
+        return {}
       },
       meetupCreator(){
         return this.meetup.meetupCreator
@@ -142,6 +148,12 @@ export default {
             }
           })
           .catch(err => console.log(err))
+      },
+      parsTime(time){
+        
+        const [HH, mm] =time.split(':')
+        return {HH, mm}
+
       }
     }
 }
