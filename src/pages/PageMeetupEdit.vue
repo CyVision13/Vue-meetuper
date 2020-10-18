@@ -33,6 +33,7 @@
         <div class="is-pulled-right">
           <!-- Update Button -->
           <button
+            @click="updateMeetupHandler"
             class="button is-success is-large">Update</button>
         </div>
       </div>
@@ -160,7 +161,7 @@ export default {
         this.fetchMeetupByIdHandler()
     },
     methods:{
-      ...mapActions('meetups',['fetchMeetupById']),
+      ...mapActions('meetups',['fetchMeetupById','updateMeetup']),
       fetchMeetupByIdHandler(){
         this.fetchMeetupById(this.meetupId)
           .then(meetup => {
@@ -169,6 +170,13 @@ export default {
             }
           })
           .catch(err => console.log(err))
+      },
+      updateMeetupHandler(){
+        this.updateMeetup(this.meetup)
+          .then(updatedMeetup =>{
+            this.$toasted.success('Meetup Succesfuly Updated!,{duration:3000}')
+          })
+          .catch(err=>console.log(err))
       },
       parsTime(time){
         
