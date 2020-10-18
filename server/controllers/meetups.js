@@ -115,20 +115,25 @@ exports.leaveMeetup = function (req, res) {
 }
 
 
+
 exports.updateMeetup = function (req, res) {
   const meetupData = req.body
   const {id} = req.params
   const user = req.user;
 
+  meetupData.updateAt = new Date()
+
   if (user.id === meetupData.meetupCreator._id) {
-    Meetup.findByIdAndUpdate(id, { $set: meetupData}, { new: true },
-    (errors, updatedMeetup) => {
+    Meetup.findByIdAndUpdate(id, { $set: meetupData}, { new: true })
+    .populate('meetupCreator', 'name id avatar')
+    .exec((errors, updatedMeetup) => {
       if (errors) {
         return res.status(422).send({errors})
       }
 
       return res.json(updatedMeetup)
     })
+    
   } else {
     return res.status(401).send({errors: {message: 'Not Authorized!'}})
   }
